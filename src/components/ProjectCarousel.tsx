@@ -29,6 +29,7 @@ const ProjectCarousel = ({ images, onViewProjects }: ProjectCarouselProps) => {
 
   const scrollPrev = () => emblaApi?.scrollPrev();
   const scrollNext = () => emblaApi?.scrollNext();
+  const scrollToSlide = (index: number) => emblaApi?.scrollTo(index);
 
   return (
     <section className="py-24 lg:py-32 relative overflow-hidden">
@@ -55,9 +56,10 @@ const ProjectCarousel = ({ images, onViewProjects }: ProjectCarouselProps) => {
             {images.map((image, index) => (
               <div
                 key={index}
-                className="flex-[0_0_100%] md:flex-[0_0_70%] lg:flex-[0_0_60%] min-w-0 pl-4 first:pl-6 lg:first:pl-12"
+                onClick={() => scrollToSlide(index)}
+                className="flex-[0_0_100%] md:flex-[0_0_70%] lg:flex-[0_0_60%] min-w-0 pl-4 first:pl-6 lg:first:pl-12 cursor-pointer"
               >
-                <div className="relative aspect-[16/10] overflow-hidden group cursor-pointer">
+                <div className="relative aspect-[16/10] overflow-hidden group">
                   <img
                     src={image}
                     alt={`Projeto ${index + 1}`}
