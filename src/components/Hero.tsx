@@ -13,9 +13,9 @@ const Hero = () => {
       <div className="absolute top-1/2 right-40 w-1 h-32 bg-beige-dark/20 hidden xl:block" />
 
       <div className="container mx-auto px-6 lg:px-12 xl:px-20 pt-24">
-        <div className="grid lg:grid-cols-[1fr_auto] gap-12 lg:gap-16 xl:gap-24 items-center">
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 xl:gap-24 items-center">
           {/* Text Content */}
-          <div className="order-2 lg:order-1 space-y-8">
+          <div className="flex-1 space-y-8">
             <div className="space-y-4">
               <p className="subtitle opacity-0 animate-fade-in" style={{
               animationDelay: "0.2s"
@@ -53,11 +53,11 @@ const Hero = () => {
           </div>
 
           {/* Profile Image */}
-          <div className="order-1 lg:order-2 lg:justify-end lg:pr-4 xl:pr-8 flex items-center justify-end">
-            <div className="relative opacity-0 animate-fade-in-right" style={{
-            animationDelay: "0.4s"
-          }}>
-              {/* Decorative frame */}
+          <div className="flex-shrink-0 opacity-0 animate-fade-in-right" style={{
+          animationDelay: "0.4s"
+        }}>
+            {/* Decorative frame */}
+            <div className="relative">
               <div className="absolute -top-4 -left-4 w-full h-full border border-beige-dark/40" />
               <div className="absolute -bottom-4 -right-4 w-full h-full border border-beige-dark/20" />
               
