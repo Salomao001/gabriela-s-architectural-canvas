@@ -13,10 +13,10 @@ const Skills = () => {
 
   const experiences = [
     {
-      period: "2023 - 2025",
+      period: "Atualmente",
       role: "Estagiária",
-      company: "Arquiteta Ana Novais",
-      description: "Desenvolvimento de projetos executivos e detalhamentos",
+      company: "Studio Treliça",
+      description: "Projetos de arquitetura e interiores",
     },
     {
       period: "2025",
@@ -25,16 +25,16 @@ const Skills = () => {
       description: "Projetos de móveis planejados",
     },
     {
-      period: "Atualmente",
-      role: "Estagiária",
-      company: "Studio Treliça",
-      description: "Projetos de arquitetura e interiores",
-    },
-    {
       period: "Freelancer",
       role: "Arquiteta",
       company: "Arquiteta Náthalia",
       description: "Projetos diversos como freelancer",
+    },
+    {
+      period: "2023 - 2025",
+      role: "Estagiária",
+      company: "Arquiteta Ana Novais",
+      description: "Desenvolvimento de projetos executivos e detalhamentos",
     },
   ];
 

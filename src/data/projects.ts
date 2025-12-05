@@ -43,10 +43,11 @@ A área externa é composta por churrasqueira, mesa com bancos e poltronas, perm
     fullDescription: `Projeto executivo completo desenvolvido durante o período de estágio no escritório da arquiteta Ana Novais. O trabalho envolveu o desenvolvimento de todas as etapas de documentação técnica necessárias para a execução da obra.
 
 O projeto incluiu plantas baixas detalhadas, cortes, fachadas, planta de cobertura, além de especificações técnicas de materiais e acabamentos. Todo o desenho técnico foi elaborado seguindo as normas da ABNT, garantindo a precisão e clareza necessárias para a execução.`,
-    thumbnail: "https://images.unsplash.com/photo-1486718448742-163732cd1544?w=800",
+    thumbnail: "src/assets/executivo1.png",
     images: [
-      "https://images.unsplash.com/photo-1486718448742-163732cd1544?w=1200",
-      "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1200",
+      "src/assets/executivo2.png",
+      "src/assets/executivo3.png",
+      "src/assets/executivo4.png",
     ],
     details: [
       { label: "Escritório", value: "Ana Novais Arquitetura" },
@@ -136,6 +137,7 @@ A experiência tem proporcionado contato com diferentes tipologias de projetos e
 ];
 
 export const carouselImages = [
+  "src/assets/executivo1.png",
   "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200",
   "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200",
   "https://images.unsplash.com/photo-1486718448742-163732cd1544?w=1200",

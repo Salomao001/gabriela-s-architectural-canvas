@@ -1,9 +1,8 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Project } from "@/data/projects";
-import { X } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, ChevronDown } from "lucide-react"; // ADICIONADO ChevronDown
 import useEmblaCarousel from "embla-carousel-react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface ProjectModalProps {
   project: Project | null;
@@ -24,43 +23,54 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 z-10 w-10 h-10 bg-background/80 backdrop-blur-sm flex items-center justify-center hover:bg-background transition-colors"
+              className="absolute top-4 right-4 z-30 w-10 h-10 bg-background/80 backdrop-blur-sm flex items-center justify-center hover:bg-background transition-colors rounded-full" // Ajustei z-index para garantir clique
               aria-label="Fechar"
             >
               <X className="w-5 h-5" />
             </button>
 
-            {/* Images Carousel */}
-            <div className="relative">
+            {/* Images Carousel Container */}
+            <div className="relative group">
               <div className="overflow-hidden" ref={emblaRef}>
                 <div className="flex">
                   {project.images.map((image, index) => (
                     <div key={index} className="flex-[0_0_100%] min-w-0">
-                      <div className="aspect-[16/10]">
+                      <div className="aspect-[16/10] relative"> 
                         <img
                           src={image}
                           alt={`${project.title} - Imagem ${index + 1}`}
                           className="w-full h-full object-cover"
                         />
+                        {/* Overlay gradiente opcional para a seta aparecer melhor caso a imagem seja branca */}
+                        <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
 
+              {/* --- NOVO: Seta de Scroll Down Animada --- */}
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center text-white animate-bounce pointer-events-none">
+                <span className="text-[10px] uppercase tracking-widest mb-1 drop-shadow-md opacity-80">
+                  Scroll
+                </span>
+                <ChevronDown className="w-8 h-8 drop-shadow-lg" />
+              </div>
+              {/* ----------------------------------------- */}
+
               {/* Carousel Navigation */}
               {project.images.length > 1 && (
                 <>
                   <button
                     onClick={() => emblaApi?.scrollPrev()}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-background/80 backdrop-blur-sm flex items-center justify-center hover:bg-background transition-colors"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-background/80 backdrop-blur-sm flex items-center justify-center hover:bg-background transition-colors rounded-full opacity-0 group-hover:opacity-100 duration-300"
                     aria-label="Anterior"
                   >
                     <ChevronLeft className="w-5 h-5" />
                   </button>
                   <button
                     onClick={() => emblaApi?.scrollNext()}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-background/80 backdrop-blur-sm flex items-center justify-center hover:bg-background transition-colors"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-background/80 backdrop-blur-sm flex items-center justify-center hover:bg-background transition-colors rounded-full opacity-0 group-hover:opacity-100 duration-300"
                     aria-label="Próximo"
                   >
                     <ChevronRight className="w-5 h-5" />

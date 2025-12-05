@@ -38,8 +38,9 @@ const Contact = () => {
               </a>
 
               <a
-                href="tel:+5514996139019"
+                href="https://wa.me/5514996139019"
                 className="flex items-center gap-4 group"
+                target="blank"
               >
                 <div className="w-12 h-12 border border-border flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-colors">
                   <Phone className="w-5 h-5 group-hover:text-primary-foreground transition-colors" />
@@ -64,19 +65,20 @@ const Contact = () => {
             {/* Social Links */}
             <div className="flex gap-3 pt-4">
               <a
-                href="#"
+                href="https://www.instagram.com/gabidelnobile/"
                 className="w-12 h-12 border border-border flex items-center justify-center hover:bg-primary hover:border-primary hover:text-primary-foreground transition-colors"
                 aria-label="Instagram"
+                target="blank"
               >
                 <Instagram className="w-5 h-5" />
               </a>
-              <a
+              {/* <a
                 href="#"
                 className="w-12 h-12 border border-border flex items-center justify-center hover:bg-primary hover:border-primary hover:text-primary-foreground transition-colors"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="w-5 h-5" />
-              </a>
+              </a> */}
             </div>
           </div>
 

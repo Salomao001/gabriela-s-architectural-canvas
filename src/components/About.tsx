@@ -37,7 +37,7 @@ const About = () => {
             { number: "2+", label: "Anos de Experiência" },
             { number: "10+", label: "Projetos Realizados" },
             { number: "UCB", label: "Universidade" },
-            { number: "2025", label: "Formação Prevista" },
+            { number: "2026", label: "Formação Prevista" },
           ].map((stat, index) => (
             <div key={index} className="text-center space-y-2">
               <span className="font-display text-3xl md:text-4xl text-primary">{stat.number}</span>
