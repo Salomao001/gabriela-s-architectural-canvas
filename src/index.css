@@ -190,3 +190,9 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--stone));
 }
+
+@media screen and (max-width: 991px) {
+  .classe-do-teu-icone {
+      display: none;
+  }
+}

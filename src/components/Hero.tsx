@@ -16,11 +16,10 @@ const Hero = () => {
       <div className="absolute top-1/2 right-40 w-1 h-32 bg-beige-dark/20 hidden xl:block" />
 
       <div className="container mx-auto px-6 lg:px-12 xl:px-20 pt-24">
-        {/* MUDANÇA AQUI: Grid com linhas definidas para permitir o layout flexível */}
+        {/* Grid Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] lg:grid-rows-[auto_1fr] gap-y-8 lg:gap-y-0 gap-x-12 lg:gap-x-16 xl:gap-x-24 items-center">
           
           {/* 1. TOPO DO TEXTO (Nome e Título) */}
-          {/* Mobile: Ordem 1 | Desktop: Coluna 1, Linha 1 */}
           <div className="order-1 lg:col-start-1 lg:row-start-1 space-y-4 self-end lg:mb-4">
             <p
               className="subtitle opacity-0 animate-fade-in"
@@ -41,7 +40,6 @@ const Hero = () => {
           </div>
 
           {/* 2. IMAGEM DE PERFIL */}
-          {/* Mobile: Ordem 2 (No meio) | Desktop: Coluna 2, Ocupa 2 linhas (lado direito inteiro) */}
           <div className="order-2 lg:col-start-2 lg:row-span-2 lg:row-start-1 flex justify-center lg:justify-end lg:pl-4 xl:pl-8">
             <div
               className="relative opacity-0 animate-fade-in-right"
@@ -63,8 +61,7 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* 3. RESTO DO CONTEÚDO (Texto descritivo e botões) */}
-          {/* Mobile: Ordem 3 (Embaixo) | Desktop: Coluna 1, Linha 2 */}
+          {/* 3. RESTO DO CONTEÚDO */}
           <div className="order-3 lg:col-start-1 lg:row-start-2 self-start lg:mt-4 space-y-8">
             <p
               className="text-stone-light leading-relaxed max-w-lg opacity-0 animate-fade-in"
@@ -89,9 +86,10 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Scroll Indicator */}
+        {/* MUDANÇA AQUI: Scroll Indicator */}
+        {/* Adicionei 'hidden' para esconder em mobile e 'lg:flex' para mostrar em desktop */}
         <div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-0 animate-fade-in"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden lg:flex flex-col items-center gap-2 opacity-0 animate-fade-in"
           style={{ animationDelay: "1.2s" }}
         >
           <span className="text-xs uppercase tracking-[0.2em] text-stone-light">

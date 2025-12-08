@@ -1,7 +1,8 @@
+import { useEffect, useRef, useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Project } from "@/data/projects";
-import { X, ChevronLeft, ChevronRight, ChevronDown } from "lucide-react"; // ADICIONADO ChevronDown
+import { X, ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
 import useEmblaCarousel from "embla-carousel-react";
 
 interface ProjectModalProps {
@@ -12,6 +13,37 @@ interface ProjectModalProps {
 
 const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+  
+  const [showScrollIcon, setShowScrollIcon] = useState(false);
+  const imageContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const checkImageHeight = () => {
+      if (imageContainerRef.current) {
+        const imgHeight = imageContainerRef.current.offsetHeight;
+        const windowHeight = window.innerHeight;
+        // O modal tem 90vh.
+        const modalHeight = windowHeight * 0.9; 
+
+        // Se a imagem for maior que a área visível do modal (-20px margem)
+        if (imgHeight >= modalHeight - 20) {
+          setShowScrollIcon(true);
+        } else {
+          setShowScrollIcon(false);
+        }
+      }
+    };
+
+    checkImageHeight();
+    window.addEventListener('resize', checkImageHeight);
+    
+    const timer = setTimeout(checkImageHeight, 100);
+
+    return () => {
+      window.removeEventListener('resize', checkImageHeight);
+      clearTimeout(timer);
+    };
+  }, [project, isOpen]);
 
   if (!project) return null;
 
@@ -23,7 +55,7 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 z-30 w-10 h-10 bg-background/80 backdrop-blur-sm flex items-center justify-center hover:bg-background transition-colors rounded-full" // Ajustei z-index para garantir clique
+              className="absolute top-4 right-4 z-30 w-10 h-10 bg-background/80 backdrop-blur-sm flex items-center justify-center hover:bg-background transition-colors rounded-full"
               aria-label="Fechar"
             >
               <X className="w-5 h-5" />
@@ -32,16 +64,15 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
             {/* Images Carousel Container */}
             <div className="relative group">
               <div className="overflow-hidden" ref={emblaRef}>
-                <div className="flex">
+                <div className="flex" ref={imageContainerRef}> 
                   {project.images.map((image, index) => (
                     <div key={index} className="flex-[0_0_100%] min-w-0">
-                      <div className="aspect-[16/10] relative"> 
+                      <div className="aspect-[16/10] relative">
                         <img
                           src={image}
                           alt={`${project.title} - Imagem ${index + 1}`}
                           className="w-full h-full object-cover"
                         />
-                        {/* Overlay gradiente opcional para a seta aparecer melhor caso a imagem seja branca */}
                         <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
                       </div>
                     </div>
@@ -49,28 +80,35 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
                 </div>
               </div>
 
-              {/* --- NOVO: Seta de Scroll Down Animada --- */}
-              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center text-white animate-bounce pointer-events-none">
-                <span className="text-[10px] uppercase tracking-widest mb-1 drop-shadow-md opacity-80">
-                  Scroll
-                </span>
-                <ChevronDown className="w-8 h-8 drop-shadow-lg" />
-              </div>
-              {/* ----------------------------------------- */}
+              {/* --- MUDANÇA AQUI: Ícone Posicionado no Topo Relativo --- */}
+              {showScrollIcon && (
+                <div 
+                  className="absolute left-1/2 -translate-x-1/2 z-20 flex flex-col items-center text-white animate-bounce pointer-events-none"
+                  // O modal tem 90vh de altura total.
+                  // Colocamos o ícone em 90vh - 100px (espaço para ele aparecer antes do corte)
+                  style={{ top: 'calc(90vh - 100px)' }}
+                >
+                  <span className="text-[10px] uppercase tracking-widest mb-1 drop-shadow-md opacity-80">
+                    Scroll
+                  </span>
+                  <ChevronDown className="w-8 h-8 drop-shadow-lg" />
+                </div>
+              )}
+              {/* -------------------------------------------------------- */}
 
               {/* Carousel Navigation */}
               {project.images.length > 1 && (
                 <>
                   <button
                     onClick={() => emblaApi?.scrollPrev()}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-background/80 backdrop-blur-sm flex items-center justify-center hover:bg-background transition-colors rounded-full opacity-0 group-hover:opacity-100 duration-300"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-background/80 backdrop-blur-sm flex items-center justify-center hover:bg-background transition-colors rounded-full opacity-0 group-hover:opacity-100 duration-300 z-10"
                     aria-label="Anterior"
                   >
                     <ChevronLeft className="w-5 h-5" />
                   </button>
                   <button
                     onClick={() => emblaApi?.scrollNext()}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-background/80 backdrop-blur-sm flex items-center justify-center hover:bg-background transition-colors rounded-full opacity-0 group-hover:opacity-100 duration-300"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-background/80 backdrop-blur-sm flex items-center justify-center hover:bg-background transition-colors rounded-full opacity-0 group-hover:opacity-100 duration-300 z-10"
                     aria-label="Próximo"
                   >
                     <ChevronRight className="w-5 h-5" />
@@ -91,14 +129,12 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
                 <div className="w-12 h-px bg-beige-dark" />
               </DialogHeader>
 
-              {/* Description */}
               <div className="space-y-4">
                 <p className="text-foreground/80 leading-relaxed whitespace-pre-line">
                   {project.fullDescription}
                 </p>
               </div>
 
-              {/* Details */}
               {project.details && (
                 <div className="grid md:grid-cols-2 gap-6 pt-6 border-t border-border">
                   {project.details.map((detail, index) => (
@@ -112,7 +148,6 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
                 </div>
               )}
 
-              {/* Tools Used */}
               {project.tools && (
                 <div className="pt-6 border-t border-border">
                   <span className="text-xs uppercase tracking-[0.15em] text-stone-light block mb-3">
